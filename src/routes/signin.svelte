@@ -2,6 +2,7 @@
     import { auth, db } from "../firebase";
     import { signInWithEmailAndPassword } from "firebase/auth";
     import {goto} from '$app/navigation'
+    import MobileNavbar from "$lib/components/MobileNavbar.svelte";
 
     export let user = undefined;
     let email, password; 
@@ -31,8 +32,11 @@
     
     
 </script>
+
+<MobileNavbar/>
+
 <main class="flex justify-center bg-gray-800 relative overflow-hidden h-screen">
-<div class="my-auto rounded-lg bg-white h-4/5 p-8 ">
+<div class="my-auto md:rounded-lg bg-white h-3/5 md:h-4/5 p-4 md:p-8 w-full md:w-auto ">
     <div>
         <h1 class="text-4xl font-bold my-10 underline decoration-solid">SignIn Your account</h1>
         <div>
@@ -53,7 +57,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center mt-4">
-                        <button on:click|preventDefault={handleClick} type="submit" class="w-2/5  py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-400 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Sign In</button>
+                        <button on:click|preventDefault={handleClick} type="submit" class="w-2/5  py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Sign In</button>
                     </div> 
 
             </form>
@@ -64,6 +68,3 @@
     </div>
 </div>
 </main>
-
-<style>
-</style>
