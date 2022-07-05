@@ -1,0 +1,72 @@
+{
+  ".svelte-kit/build/index.js": {
+    "file": "index.js",
+    "src": ".svelte-kit/build/index.js",
+    "isEntry": true,
+    "imports": [
+      "_index-964d195d.js"
+    ],
+    "dynamicImports": [
+      ".svelte-kit/build/hooks.js"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "entries/pages/__layout.svelte.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-964d195d.js"
+    ],
+    "css": [
+      "assets/entries/pages/__layout.svelte-bb261806.css"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "entries/fallbacks/error.svelte.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-964d195d.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "entries/pages/index.svelte.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-964d195d.js"
+    ],
+    "css": [
+      "assets/entries/pages/index.svelte-cbcde520.css"
+    ]
+  },
+  "src/routes/signin.svelte": {
+    "file": "entries/pages/signin.svelte.js",
+    "src": "src/routes/signin.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-964d195d.js",
+      "_firebase-22dcd76c.js"
+    ]
+  },
+  "src/routes/signup.svelte": {
+    "file": "entries/pages/signup.svelte.js",
+    "src": "src/routes/signup.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-964d195d.js",
+      "_firebase-22dcd76c.js"
+    ]
+  },
+  "_index-964d195d.js": {
+    "file": "chunks/index-964d195d.js"
+  },
+  "_firebase-22dcd76c.js": {
+    "file": "chunks/firebase-22dcd76c.js"
+  },
+  ".svelte-kit/build/hooks.js": {
+    "file": "chunks/hooks-1c45ba0b.js",
+    "src": ".svelte-kit/build/hooks.js",
+    "isDynamicEntry": true
+  }
+}
