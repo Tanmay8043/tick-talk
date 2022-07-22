@@ -5,7 +5,8 @@
     import {goto} from '$app/navigation';
     import MobileNavbar from "$lib/components/MobileNavbar.svelte";
 
-    let email,username, password; 
+    let email,username="", password; 
+    $: avatar = `https://ui-avatars.com/api/?name=${username.replace(/ /g, '+')}&rounded=true&background=ff3e00&color=fff&bold=true`;
     let show_password = false, value="";
     $: type = show_password ? 'text' : 'password'
     function onInput (event) {
@@ -27,7 +28,8 @@
                         setDoc(doc(db, "users", email), {
                             uid: user.uid,
                             email, 
-                            username
+                            username, 
+                            avatar
                         });
                     } 
                     catch (e) {

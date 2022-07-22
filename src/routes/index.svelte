@@ -3,6 +3,7 @@
   import Searchbar from "$lib/components/Searchbar.svelte";
   import MobileNavbar from "$lib/components/MobileNavbar.svelte";
   import ProfilePage from "$lib/components/ProfilePage.svelte";
+  import Messaging from "$lib/components/Messaging.svelte";
   import { selected } from "$lib/stores";
 </script>
 <MobileNavbar/>
@@ -20,6 +21,8 @@
           <div class="py-4">
             {#if $selected == "Profile"}
               <ProfilePage/>
+            {:else if $selected == "Messaging"}
+              <Messaging/>
             {/if}
           </div>
         </div>

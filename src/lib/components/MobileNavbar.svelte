@@ -60,11 +60,11 @@
             <p class="mx-auto text-center text-xs text-{$selected=='Home'?'gray-800 font-medium':'gray-600'} -mt-2">Home</p>
         </div>
 
-        <div class="w-1/4 m-auto ripple rounded-xl tap pb-1" on:click={()=>{selected.set("Explore")}}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="{$selected == "Explore"?"fill-gray-700":"fill-gray-400  "} m-auto h-10 p-2.5">
-                <path d="M234.5 5.709C248.4 .7377 263.6 .7377 277.5 5.709L469.5 74.28C494.1 83.38 512 107.5 512 134.6V377.4C512 404.5 494.1 428.6 469.5 437.7L277.5 506.3C263.6 511.3 248.4 511.3 234.5 506.3L42.47 437.7C17 428.6 0 404.5 0 377.4V134.6C0 107.5 17 83.38 42.47 74.28L234.5 5.709zM256 65.98L82.34 128L256 190L429.7 128L256 65.98zM288 434.6L448 377.4V189.4L288 246.6V434.6z"/>
-            </svg>
-            <p class="mx-auto text-center text-xs text-{$selected=='Explore'?'gray-800 font-medium':'gray-600'} -mt-2">Explore</p>
+        <div class="w-1/4 m-auto ripple rounded-xl tap pb-1" on:click={()=>{selected.set("Messaging")}}>
+            <svg class="{$selected == "Messaging"?"fill-gray-700":"fill-gray-400  "} m-auto h-10 p-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke="currentColor" fill="none">
+                <path d="M447.1 0h-384c-35.25 0-64 28.75-64 63.1v287.1c0 35.25 28.75 63.1 64 63.1h96v83.98c0 9.836 11.02 15.55 19.12 9.7l124.9-93.68h144c35.25 0 64-28.75 64-63.1V63.1C511.1 28.75 483.2 0 447.1 0zM464 352c0 8.75-7.25 16-16 16h-160l-80 60v-60H64c-8.75 0-16-7.25-16-16V64c0-8.75 7.25-16 16-16h384c8.75 0 16 7.25 16 16V352z"/>
+              </svg>
+            <p class="mx-auto text-center text-xs text-{$selected=='Messaging'?'gray-800 font-medium':'gray-600'} -mt-2">Messaging</p>
         </div>
 
         <div class="w-1/4 m-auto ripple rounded-xl tap pb-1" on:click={()=>{selected.set("New Post")}}>
