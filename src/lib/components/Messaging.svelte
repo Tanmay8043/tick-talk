@@ -1,4 +1,4 @@
-<div class="container mx-auto">
+<div class="container mx-auto mb-16 md:mb-0">
     <div class="min-w-full border rounded lg:grid lg:grid-cols-3">
       <div class="border-r border-gray-300 lg:col-span-1">
         <div class="mx-3 my-3">
