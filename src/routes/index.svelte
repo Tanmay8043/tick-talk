@@ -27,7 +27,7 @@
   })
 
 </script>
-<MobileNavbar/>
+<!--<MobileNavbar/>-->
 <div class="h-screen flex">
   <Sidebar/>
   <div class="flex-1 flex flex-col overflow-hidden">
