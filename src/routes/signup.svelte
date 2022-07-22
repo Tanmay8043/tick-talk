@@ -31,6 +31,9 @@
                             username, 
                             avatar
                         });
+                        setDoc(doc(db, "usernames", username), {
+                            email
+                        });
                     } 
                     catch (e) {
                         console.error("Error adding document: ", e);

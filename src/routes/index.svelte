@@ -5,6 +5,27 @@
   import ProfilePage from "$lib/components/ProfilePage.svelte";
   import Messaging from "$lib/components/Messaging.svelte";
   import { selected } from "$lib/stores";
+  import {auth, db} from "../firebase";
+  import {onAuthStateChanged} from "firebase/auth";
+  import {onMount} from "svelte";
+  import {getDoc, doc} from "firebase/firestore"
+
+  var us={};
+  onMount(async()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+      // if($selected == "Profile") goto("/profile/{user.email}")
+      console.log(user);
+      const docSnap = getDoc(doc(db, "users", user.email)).then(data=>(console.log(us=data.data())));
+      // us= docSnap.data();
+    } else {
+      // User is signed out
+      // ...
+    }
+    console.log(us);
+  });
+  })
+
 </script>
 <MobileNavbar/>
 <div class="h-screen flex">
@@ -19,9 +40,7 @@
         </div>
         <div class=" mx-auto px-4 sm:px-6 md:px-8">
           <div class="py-4">
-            {#if $selected == "Profile"}
-              <ProfilePage/>
-            {:else if $selected == "Messaging"}
+            {#if $selected == "Messaging"}
               <Messaging/>
             {/if}
           </div>
