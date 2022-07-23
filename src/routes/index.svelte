@@ -1,28 +1,27 @@
 <script>
   import Sidebar from "$lib/components/Sidebar.svelte";
-  import Searchbar from "$lib/components/Searchbar.svelte";
+  import Explore from "$lib/components/Explore.svelte";
   import MobileNavbar from "$lib/components/MobileNavbar.svelte";
   import ProfilePage from "$lib/components/ProfilePage.svelte";
   import Messaging from "$lib/components/Messaging.svelte";
-  import { selected } from "$lib/stores";
+  import { selected, userStore } from "$lib/stores";
   import {auth, db} from "../firebase";
   import {onAuthStateChanged} from "firebase/auth";
   import {onMount} from "svelte";
-  import {getDoc, doc} from "firebase/firestore"
+  import {getDoc, doc} from "firebase/firestore";
+  import {goto} from "$app/navigation"
 
   var us={};
   onMount(async()=>{
     onAuthStateChanged(auth, (user) => {
       if (user) {
-      // if($selected == "Profile") goto("/profile/{user.email}")
-      console.log(user);
-      const docSnap = getDoc(doc(db, "users", user.email)).then(data=>(console.log(us=data.data())));
-      // us= docSnap.data();
+      const docSnap = getDoc(doc(db, "users", user.email)).then((data)=>{
+        userStore.set(data.data());
+        console.log($userStore);
+      });
     } else {
-      // User is signed out
-      // ...
+      goto("/signup");
     }
-    console.log(us);
   });
   })
 
@@ -42,6 +41,8 @@
           <div class="py-4">
             {#if $selected == "Messaging"}
               <Messaging/>
+            {:else if $selected == "Search User"}
+              <Explore/>
             {/if}
           </div>
         </div>

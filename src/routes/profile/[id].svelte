@@ -27,9 +27,9 @@ onMount(async()=>{
   var sh=false;
 </script>
 <!-- <MobileNavbar/> -->
-<div class="h-screen flex w-full">
+<div class="h-screen flex w-">
     <Sidebar/>
-    <div class="w-full">
+    <div class="w-full pl-2">
         {#if sh}
             <div class=" mx-auto pt-2 px-4 sm:px-6 md:px-8 mt-10">
                 <h1 class="text-2xl font-semibold text-gray-700">{$page.params.id}'s Profile</h1>

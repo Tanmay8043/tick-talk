@@ -18,7 +18,7 @@ import {doc, getDoc} from "firebase/firestore";
   })
 </script>
 
-<div class="hidden w-28 bg-gray-700 overflow-y-auto md:block">
+<div class="hidden w-28 bg-gray-700 overflow-y-auto md:block select-none">
   <div class="w-full py-6 flex flex-col items-center">
     <div class="flex-shrink-0 flex items-center">
       <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white" alt="Workflow">
@@ -35,6 +35,12 @@ import {doc, getDoc} from "firebase/firestore";
         <path d="M447.1 0h-384c-35.25 0-64 28.75-64 63.1v287.1c0 35.25 28.75 63.1 64 63.1h96v83.98c0 9.836 11.02 15.55 19.12 9.7l124.9-93.68h144c35.25 0 64-28.75 64-63.1V63.1C511.1 28.75 483.2 0 447.1 0zM464 352c0 8.75-7.25 16-16 16h-160l-80 60v-60H64c-8.75 0-16-7.25-16-16V64c0-8.75 7.25-16 16-16h384c8.75 0 16 7.25 16 16V352z"/>
       </svg>
       <span class="mt-2">Messaging</span>
+    </a>
+    <a href="/" class="{$selected == "Search User" ? "bg-gray-800 text-white":"text-gray-100 hover:bg-gray-600 hover:text-white"} cursor-pointer group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium" on:click={()=>{selected.set("Search User")}}>
+      <svg class="{$selected == "Search User"?"text-white":"text-gray-400 group-hover:text-white "} h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span class="mt-2">Search User</span>
     </a>
     <a href="/" class="{$selected == "New Post" ? "bg-gray-800 text-white":"text-gray-100 hover:bg-gray-600 hover:text-white"} cursor-pointer group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium" on:click={()=>{selected.set("New Post")}}>
       <svg class="{$selected == "New Post"?"text-white":"text-gray-400 group-hover:text-white "} h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

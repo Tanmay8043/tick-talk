@@ -2,41 +2,56 @@
   import ChatRoom from "./ChatRoom.svelte";
   import {auth,db} from "../../firebase";
   import {onAuthStateChanged} from "firebase/auth";
-  import {doc, onSnapShot} from "firebase/firestore";
+  import {onMount} from "svelte";
+  import {collection, query, orderBy, onSnapshot} from "firebase/firestore";
+  import {userStore} from "$lib/stores";
+
+  var friends=[];
+  onMount(async()=>{
+    const q = query(collection(db, "users", $userStore.email, "chats"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      friends = [];
+      querySnapshot.forEach((doc) => {
+          friends.push(doc.data());
+      });
+      // console.log("Current cities in CA: ", cities.join(", "));
+    });
+  })
 </script>
 <div class="container mx-auto mb-16 md:mb-0 mr-4">
     <div class="min-w-full border rounded lg:grid lg:grid-cols-3">
       <div class="border-r border-gray-300 lg:col-span-1">
-        <div class="mx-3 my-3">
-          <div class="relative text-gray-600">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+        <div class="mx-3 my-3 flex rounded-md shadow">
+          <div class="relative text-gray-600 flex items-stretch flex-grow focus-within:z-10 rounded">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 viewBox="0 0 24 24" class="w-6 h-6 text-gray-300">
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </span>
-            <input type="search" class="block w-full py-2 pl-10 bg-gray-100 rounded outline-none" name="search"
+            <input type="search" class="block w-full py-2 pl-10 rounded-l outline-none" name="search"
               placeholder="Search" required />
           </div>
+          <button type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-l-0 border-gray-500 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:shadow-md  ">
+            <span>Search</span>
+          </button>
         </div>
 
         <!-- <h2 class="my ml-2 text-lg text-gray-600">Chats</h2> -->
-        <ul class="overflow-auto max-h-[38rem] md:max-h-[32rem] border-t border-gray-300">
-          <li>
-            <a
-                  class="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
-                  <img class="object-cover w-10 h-10 rounded-full"
-                    src="https://cdn.pixabay.com/photo/2018/09/12/12/14/man-3672010__340.jpg" alt="username" />
-                  <div class="w-full pb-2">
-                    <div class="flex justify-between">
-                      <span class="block ml-2 font-semibold text-gray-600">Jhon Don</span>
-                      <span class="block ml-2 text-sm text-gray-600">25 minutes</span>
-                    </div>
-                    <span class="block ml-2 text-sm text-gray-600">bye</span>
-                  </div>
-                </a>
-          </li>
-        </ul>
+        <div class="overflow-auto max-h-[38rem] md:max-h-[32rem] border-t border-gray-300">
+          {#each friends as friend}
+            <div class="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none">
+              <img class="object-cover w-10 h-10 rounded-full" src="{friend.avatar}" alt="friend avatar" />
+              <div class="w-full pb-2">
+                <div class="flex justify-between">
+                  <span class="block ml-2 font-semibold text-gray-600">{friend.name}</span>
+                  <!--<span class="block ml-2 text-sm text-gray-600">25 minutes</span>-->
+                </div>
+                <!--<span class="block ml-2 text-sm text-gray-600">bye</span>-->
+              </div>
+            </div>
+          {/each}
+        </div>
         </div>
         <ChatRoom/>
       <div class="hidden lg:col-span-2 lg:block">
