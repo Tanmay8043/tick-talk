@@ -1,9 +1,75 @@
 <script>
-    import {selected} from "$lib/stores";
-    import {auth} from "../../firebase";
-    import {onAuthStateChanged} from "firebase/auth";
+    import {selected, modalStore, userStore} from "$lib/stores";
+    import Modal from "./Modal.svelte";
+    import { db } from "../../firebase";
+    import { doc, collection, addDoc, updateDoc, setDoc } from "firebase/firestore"; 
+
+
     export var user, show;
+    var msg;
+    var date= new Date();
+    const sendMessage=()=>{
+        var data={
+            msg,
+            uid: $userStore.uid,
+            sentAt: date,
+            avatar: $userStore.avatar,
+            receiver: user
+        }
+        if(msg != ""){
+            try {
+                setDoc(doc(db, "users", $userStore.email, "chats", user.username), {
+                    name: user.username,
+                    avatar: user.avatar,
+                    lastmsg: msg,
+                    lastSent: date 
+                }).then(()=>{
+                    addDoc(collection(db, "users", $userStore.email, "chats", user.username, "chats"), data).then((ref)=>{
+                        updateDoc(doc(db, "users", $userStore.email, "chats", user.username, "chats", ref.id),{
+                            id:ref.id
+                        });
+                    });
+                });
+                setDoc(doc(db, "users", user.email, "chats", $userStore.username), {
+                    name: $userStore.username,
+                    avatar: $userStore.avatar,
+                    lastmsg: msg,
+                    lastSent: date 
+                }).then(()=>{
+                    addDoc(collection(db, "users", user.email, "chats", $userStore.username, "chats"), data).then((ref)=>{
+                        updateDoc(doc(db, "users", user.email, "chats", $userStore.username, "chats", ref.id),{
+                            id:ref.id
+                        });
+                    });
+                });
+                modalStore.set(false)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 </script>
+{#if $modalStore}
+<Modal title="{user.username}'s DM">
+    <div class="flex flex-col items-start border border-gray-300 p-4 rounded-md">
+        <label class="float-left text-sm text-gray-700 font-semibold" for="msg">Your Message</label>
+        <div class="w-full mt-2 shadow-md">
+            <form class="w-full flex md:ml-0" on:submit|preventDefault={sendMessage}>
+              <div class="relative w-full text-gray-400 ">
+                <input bind:value={msg} class="appearance-none focus:outline-none h-full w-full border border-r-0 border-gray-500 p-2 rounded-l-md text-sm text-gray-500 focus:ring-0 focus:ring-gray-100 placeholder-gray-500  focus:placeholder-gray-400" placeholder="Type Your Message" />
+              </div>
+              <button on:click|preventDefault={sendMessage} type="button" class="float-right border border-l-0 border-gray-500 rounded-r-md relative inline-flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                <svg class="w-5 h-5 text-gray-500 origin-center transform rotate-90" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+              </svg>
+              </button>
+            </form>
+          </div>
+    </div>
+</Modal>
+{/if}
 
 <div class="md:w-2/3 pt-5 max-h-[80vh] overflow-y-auto mx-auto">
 
@@ -41,7 +107,7 @@
  
         <div class="flex justify-center gap-2 my-5">
             <!-- <button class="bg-pink-500 px-10 py-2 rounded-full text-white shadow-lg">Follow</button> -->
-            <button class="{show ? "hidden":""} bg-white border border-gray-500 px-10 py-2 rounded-full shadow hover:shadow-md   ">Message</button>
+            <button on:click={()=>{modalStore.set(true)}} class="{show ? "hidden":""} bg-white border border-gray-500 px-10 py-2 rounded-full shadow hover:shadow-md">Send Message</button>
         </div>
 
 

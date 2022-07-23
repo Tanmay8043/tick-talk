@@ -11,15 +11,17 @@ import {userStore} from "$lib/stores";
 
 var user, show=false;
 // onMount(async()=>{
-    $:getDoc(doc(db, "usernames", $page.params.id)).then((data)=>{
-        var email = data.data().email;
-        console.log(email);
+    $:getDoc(doc(db, "usernames", $page.params.id)).then(async(ref)=>{
+        setTimeout(async() => {
+            var email = await ref.data().email
             if($userStore.email == email) show=true;
-      getDoc(doc(db, "users",email)).then((x)=>{
-          user=x.data();
-        //   console.log(user);
-          sh= true;
-        })
+             getDoc(doc(db, "users",email)).then((x)=>{
+                 user=x.data();
+               //   console.log(user);
+                 sh= true;
+               })
+            
+        }, 400);
     });
 
 //   })
