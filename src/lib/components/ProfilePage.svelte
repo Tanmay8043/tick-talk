@@ -41,7 +41,7 @@
  
         <div class="flex justify-center gap-2 my-5">
             <!-- <button class="bg-pink-500 px-10 py-2 rounded-full text-white shadow-lg">Follow</button> -->
-            <button class="bg-white border border-gray-500 px-10 py-2 rounded-full shadow hover:shadow-md   ">Message</button>
+            <button class="{show ? "hidden":""} bg-white border border-gray-500 px-10 py-2 rounded-full shadow hover:shadow-md   ">Message</button>
         </div>
 
 
